@@ -8,17 +8,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>
-        <div className="p-[15px]">
-          <header>
-            <StockFlow></StockFlow>
-          </header>
-          <div className=" ">
-            <AuthProviders>{children}</AuthProviders>
-          </div>
-        </div>
-      </body>
-    </html>
+    <div className="p-[15px]">
+      <header>
+        <StockFlow></StockFlow>
+      </header>
+      <div className=" ">{children}</div>
+    </div>
   );
 }

@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
-import { prisma } from "@/lib/prisma";
+import prisma from "@/lib/prisma";
 import nodemailer from "nodemailer";
 
 function GenerateCode() {
@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
   const { email } = body;
 
   const code = GenerateCode();
-  const expiresAt = new Date(Date.now() + 10);
+  const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
 
   const transporter = nodemailer.createTransport({
     service: "gmail",
@@ -32,16 +32,12 @@ export async function POST(req: NextRequest) {
     await transporter.sendMail(mailOptions);
 
     await prisma.verificationCode.upsert({
-      where: { email },
-      update: {},
-      create: {
-        email,
-        code,
-        expiresAt,
-      },
-    });
+  where: { email },
+  update: { code, expiresAt }, // atualiza o código e a expiração
+  create: { email, code, expiresAt },
+});
 
-    return NextResponse.json({ success: true, code });
+    return NextResponse.json({ success: true});
   } catch (error) {
     console.error("Erro ao salvar código no banco:", error);
     return NextResponse.json({ error: "Erro interno" }, { status: 500 });

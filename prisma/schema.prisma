@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
 }
 
 
@@ -19,9 +19,51 @@ model User {
 
   accounts       Account[]
   sessions       Session[]
+
+  items Item[]
+  sales Sale[]
+}
+
+model Item {
+  id         String   @id @default(cuid())
+  name       String
+  preco      Float
+  quantidade Int
+  createdAt  DateTime @default(now())
+  deletedAt DateTime?
+
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  saleItems SaleItem[]
+  @@index([userId])
+}
+
+model Sale {
+  id        String     @id @default(cuid())
+  total     Float
+  createdAt DateTime   @default(now())
+
+  userId    String
+  user      User       @relation(fields: [userId], references: [id])
+
+  items     SaleItem[]
+}
+
+model SaleItem {
+  id         String   @id @default(cuid())
+  name       String
+  quantidade Int
+  preco      Float
+
+  saleId     String
+  sale       Sale     @relation(fields: [saleId], references: [id])
+
+  itemId     String
+  item       Item     @relation(fields: [itemId], references: [id])
 }
  
- 
+
 model VerificationCode {
   id         String   @id @default(cuid())
   email      String   @unique

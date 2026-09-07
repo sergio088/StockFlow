@@ -5,28 +5,27 @@ import Title1e2 from "@/components/login-cadastro/title1e2";
 import LoginGoogle from "@/components/login-cadastro/Loginbutton";
 import { useState } from "react";
 import Senha from "@/components/login-cadastro/senha";
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 export default function Login() {
   const [senha, setSenha] = useState("");
   const [email, setemail] = useState("");
-  const router = useRouter();
+  // const router = useRouter();
 
   async function Continuar() {
     if (!email || !senha) {
       return;
     }
-    const res = await fetch("/api/users/login/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, senha }),
+    const res = await signIn("credentials", {
+      email,
+      senha,
+      redirect: true,
+      callbackUrl: "/Dashboard",
     });
-    if (res.status === 200) {
-      router.push("/Home");
-    }
-    if (res.status === 400) {
+    if (res?.error) {
+      console.log("Login falhou:", res.error);
+      return;
     }
   }
 

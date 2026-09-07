@@ -47,3 +47,5 @@ data/mysql/*.sock
 # Ignorar pastas de dados do MySQL
 data/mysql/
 binlog.*"
+
+.neon

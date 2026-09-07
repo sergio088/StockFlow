@@ -1,16 +1,15 @@
-version: "3.8"
-
 services:
-  mysql:
-    image: mysql:8.0
-    container_name: meu-mysql
+  db:
+    image: postgres:16
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: meubanco
-      MYSQL_USER: sergio
-      MYSQL_PASSWORD: devpass
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: saas
     ports:
-      - "3306:3306"
+      - "5432:5432"
     volumes:
-      - ./data/mysql:/var/lib/mysql
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
