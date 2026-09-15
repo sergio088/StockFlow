@@ -3,15 +3,10 @@ import Button from "@/components/utils/Button";
 
 interface SalesItemsprops {
   items: Item[];
-  addCarrinho: (item: Item) => void;
-  TotalPreco: (total: number) => void;
+  addCarrinho: (item: Item, itemPreco: number) => void;
 }
 
-export default function SalesItems({
-  items,
-  addCarrinho,
-  TotalPreco,
-}: SalesItemsprops) {
+export default function SalesItems({ items, addCarrinho }: SalesItemsprops) {
   return (
     <div>
       {items.map((item) => {
@@ -53,8 +48,7 @@ export default function SalesItems({
                 <div>
                   <Button
                     onClick={() => {
-                      addCarrinho(item);
-                      TotalPreco(item.preco);
+                      addCarrinho(item, item.preco);
                     }}
                     className=""
                   >

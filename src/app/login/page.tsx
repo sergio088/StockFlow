@@ -11,7 +11,6 @@ import { signIn } from "next-auth/react";
 export default function Login() {
   const [senha, setSenha] = useState("");
   const [email, setemail] = useState("");
-  // const router = useRouter();
 
   async function Continuar() {
     if (!email || !senha) {

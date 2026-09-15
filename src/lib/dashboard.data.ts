@@ -13,3 +13,15 @@ export async function data(): Promise<dataDash> {
 
   return res.json();
 }
+
+type dataEstoqueprops = {
+  produtosFaltando: Record<string, { name: string; quantidade: number }>;
+};
+export async function dataEstoque(): Promise<dataEstoqueprops> {
+  const res = await fetch(`/api/dashboard/estoque`);
+  if (!res.ok) {
+    throw new Error("Erro ao buscar itens");
+  }
+
+  return res.json();
+}

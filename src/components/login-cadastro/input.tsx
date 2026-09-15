@@ -16,8 +16,8 @@ const Emailinput = forwardRef<HTMLInputElement, EmailInputProps>(
           className={` w-full  p-2 rounded focus:border-blue-500 
             ${
               erro
-                ? "border border-red-500 placeholder:text-red-500"
-                : "border border-gray-400 placeholder:text-gray-500"
+                ? "border border-gray-400 placeholder:text-gray-500"
+                : "border border-red-500 placeholder:text-red-500"
             }`}
           type="text"
           required
@@ -25,7 +25,7 @@ const Emailinput = forwardRef<HTMLInputElement, EmailInputProps>(
         />
       </div>
     );
-  }
+  },
 );
 Emailinput.displayName = "Emailinput";
 

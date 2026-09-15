@@ -24,15 +24,21 @@ export default function ButtonSellItem() {
     GetItems();
   }, []);
 
-  function adicionarItemCarrinho(itemnovo: Item) {
+  function adicionarItemCarrinho(itemnovo: Item, itemPreco: number) {
     const itemExiste = itemCarrinho.find((item) => {
       const i = item.id === itemnovo.id;
       return i;
     });
-    const semEstoque = itemnovo.quantidade - 1 < 0;
-    if (semEstoque) {
-    } else if (itemExiste) {
-      alert("tem estoque");
+    const semEstoque = itemCarrinho.find((item) => {
+      if (itemnovo.id === item.id) {
+        const quantidadeAtual = itemnovo.quantidade - item.quantidade <= 0;
+        return quantidadeAtual;
+      }
+    });
+    if (itemExiste) {
+      if (semEstoque) {
+        return;
+      }
       setItemCarrinho((prev) =>
         prev.map((item) => {
           if (item.id === itemExiste.id) {
@@ -45,7 +51,12 @@ export default function ButtonSellItem() {
           }
         }),
       );
+      setTotal((prev) => prev + itemPreco);
     } else {
+      if (semEstoque) {
+        return;
+      }
+      setTotal((prev) => prev + itemPreco);
       setItemCarrinho((prev) => [...prev, { ...itemnovo, quantidade: 1 }]);
     }
   }
@@ -54,10 +65,6 @@ export default function ButtonSellItem() {
     const data: Item[] = await GetListItems(search);
     setItems(data);
   };
-
-  function TotalPreco(total: number) {
-    setTotal((prev) => prev + total);
-  }
 
   return (
     <div>
@@ -80,11 +87,7 @@ export default function ButtonSellItem() {
                 ></Input>
               </search>
               <div className="max-h-96 overflow-y-auto">
-                <SalesItems
-                  items={items}
-                  addCarrinho={adicionarItemCarrinho}
-                  TotalPreco={TotalPreco}
-                />
+                <SalesItems items={items} addCarrinho={adicionarItemCarrinho} />
               </div>
             </section>
             <span className="m-3 w-[1px] h-full bg-black"></span>
