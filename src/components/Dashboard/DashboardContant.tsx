@@ -17,10 +17,21 @@ export default function DashboardContant() {
   const [ganhosMes, setGanhosMes] = useState(0);
   const [ganhosTotais, setGanhosTotais] = useState(0);
   const [vendas, setVendas] = useState(0);
-  const [ganhosPorMes, setGanhosPorMes] = useState<{}[]>([]);
-  const [rankItems, setRankItems] = useState<{}[]>([]);
-  const [produtosF, setProdutosF] = useState<{}[]>([]);
+  type GanhosPorMes = {
+    mes: number;
+    ganhos: number;
+  };
+
+  type RankingItem = {
+    name: string;
+    quantidade: number;
+  };
+
+  const [ganhosPorMes, setGanhosPorMes] = useState<GanhosPorMes[]>([]);
+  const [rankItems, setRankItems] = useState<RankingItem[]>([]);
+  const [produtosF, setProdutosF] = useState<RankingItem[]>([]);
   const anoAtual = new Date().getFullYear();
+
   useEffect(() => {
     async function dash() {
       const dataDash = await data();
@@ -42,10 +53,9 @@ export default function DashboardContant() {
 
       const setTop10 = dataDash.top10;
       const top10 = Object.entries(setTop10).map(
-        ([id, { name, quantidade }]) => ({
+        ([, { name, quantidade }]) => ({
           name: name,
           quantidade: Number(quantidade),
-          id: id,
         }),
       );
       setRankItems(top10);
@@ -53,10 +63,9 @@ export default function DashboardContant() {
       const dataE = await dataEstoque();
       const pfaltantes = dataE.produtosFaltando;
       const produtosFaltando = Object.entries(pfaltantes).map(
-        ([id, { name, quantidade }]) => ({
+        ([, { name, quantidade }]) => ({
           name: name,
           quantidade: Number(quantidade),
-          id: id,
         }),
       );
       setProdutosF(produtosFaltando);

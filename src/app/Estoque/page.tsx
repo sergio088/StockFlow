@@ -5,7 +5,7 @@ import Session from "@/lib/session";
 export default async function Estoque({
   searchParams,
 }: {
-  searchParams: { busca?: string };
+  searchParams: Promise<{ busca?: string }>;
 }) {
   await Session();
   const params = await searchParams;
