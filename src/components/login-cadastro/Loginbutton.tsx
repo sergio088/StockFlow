@@ -11,7 +11,7 @@ export default function LoginGoogle() {
         className=" border w-full cursor-pointer border-gray-400 px-4 py-2 rounded-3xl shadow hover:bg-gray-50 "
         onClick={() =>
           signIn("google", {
-            callbackUrl: "/Home",
+            callbackUrl: "/Dashboard",
           })
         }
       >

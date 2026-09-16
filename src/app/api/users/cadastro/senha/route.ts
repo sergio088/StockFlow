@@ -1,18 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import prisma from "@/lib/prisma";
+import bcrypt from "bcryptjs";
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
-  const { email, senha } = body;
-  const name = "";
+  const { name, email, senha } = body;
+  const senhahash = await bcrypt.hash(senha, 10);
 
-  console.log(email, senha);
   try {
     await prisma.user.create({
       data: {
         name,
         email,
-        senha,
+        senha: senhahash,
       },
     });
     return NextResponse.json({ message: "Conta criada" }, { status: 200 });

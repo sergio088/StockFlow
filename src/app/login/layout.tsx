@@ -1,5 +1,4 @@
 import React from "react";
-import { AuthProviders } from "../providers/SessionProviders";
 import StockFlow from "@/components/Links/StockFlow";
 
 export default function Rootlayout({
@@ -8,15 +7,11 @@ export default function Rootlayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>
-        <header>
-          <StockFlow></StockFlow>
-        </header>
-        <div className="">
-          <AuthProviders>{children}</AuthProviders>
-        </div>
-      </body>
-    </html>
+    <div>
+      <header>
+        <StockFlow></StockFlow>
+      </header>
+      <div className="">{children}</div>
+    </div>
   );
 }

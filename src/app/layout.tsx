@@ -1,8 +1,8 @@
 "use client";
-import "./globals.css"; // caminho pro seu CSS global
+import "./globals.css";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
-
+import { AuthProviders } from "./providers/SessionProviders";
 import { usePathname } from "next/navigation";
 
 export default function RootLayout({
@@ -17,9 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-white text-black min-h-screen flex flex-col">
-        {noHeader && <Header />}
-        <main className="flex-1 ">{children}</main>
-        {noHeader && <Footer />}
+        <AuthProviders>
+          {noHeader && <Header />}
+          <main className="flex-1">{children}</main>
+          {noHeader && <Footer />}
+        </AuthProviders>
       </body>
     </html>
   );

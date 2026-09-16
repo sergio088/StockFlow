@@ -7,7 +7,8 @@ import { useRef, useState } from "react";
 import ButtonContinuar from "@/components/login-cadastro/buttonContinuar";
 import VerificarEmail from "@/components/login-cadastro/verificaremail";
 import Senha from "@/components/login-cadastro/senha";
-import { useRouter } from "next/navigation"; // Para App Router
+
+import { signIn } from "next-auth/react";
 
 export default function Cadastro() {
   const emailref = useRef<HTMLInputElement>(null);
@@ -16,9 +17,8 @@ export default function Cadastro() {
   const [senha, setSenha] = useState("");
   const [mostrarInputSenha, setInputSenha] = useState(false);
   const [message, setmessage] = useState(
-    "O codigo de verificaçao expira em 10 minutos"
+    "O codigo de verificaçao expira em 10 minutos",
   );
-  const router = useRouter();
 
   async function Continuar() {
     if (codeEmail === "") {
@@ -63,7 +63,12 @@ export default function Cadastro() {
           body: JSON.stringify({ email, senha }),
         });
         if (res.status === 200) {
-          router.push("/Home");
+          signIn("credentials", {
+            email,
+            senha,
+            redirect: true,
+            callbackUrl: "/Dashboard",
+          });
         }
       }
     }
