@@ -5,7 +5,6 @@ import Title1e2 from "@/components/login-cadastro/title1e2";
 import LoginGoogle from "@/components/login-cadastro/Loginbutton";
 import { useState } from "react";
 import Senha from "@/components/login-cadastro/senha";
-import { redirect } from "next/navigation";
 import { signIn } from "next-auth/react";
 
 export default function Login() {

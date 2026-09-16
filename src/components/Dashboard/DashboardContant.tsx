@@ -1,8 +1,6 @@
 "use client";
 import Card from "@/components/Dashboard/cardsInfo";
 import {
-  Area,
-  AreaChart,
   LineChart,
   Line,
   ResponsiveContainer,
