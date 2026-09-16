@@ -124,6 +124,27 @@ User
 - Price
 - Product relationship
 - Sale relationship
+* Product name
+* Price
+* Quantity
+* Creation date
+* User relationship
+* Soft-delete timestamp
+
+**Sale**
+
+* Total
+* Creation date
+* User relationship
+* Sale items
+
+**SaleItem**
+
+* Product name
+* Quantity
+* Price
+* Product relationship
+* Sale relationship
 
 ## 🔐 Security
 
