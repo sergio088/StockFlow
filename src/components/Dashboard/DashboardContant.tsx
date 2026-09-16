@@ -45,6 +45,7 @@ export default function DashboardContant() {
         ([id, { name, quantidade }]) => ({
           name: name,
           quantidade: Number(quantidade),
+          id: id,
         }),
       );
       setRankItems(top10);
@@ -55,6 +56,7 @@ export default function DashboardContant() {
         ([id, { name, quantidade }]) => ({
           name: name,
           quantidade: Number(quantidade),
+          id: id,
         }),
       );
       setProdutosF(produtosFaltando);

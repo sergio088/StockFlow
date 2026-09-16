@@ -5,7 +5,7 @@ import Input from "../utils/Input";
 import { AddItems } from "@/lib/items.client";
 
 export default function AddItem() {
-  const [open, setOpen] = useState<Boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
   const handleClick = () => {
     setOpen(true);
   };

@@ -24,7 +24,7 @@ export default function ItemContent({ item }: itemcontentprops) {
   const [quant, setQuant] = useState(item.quantidade);
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [search, setSearch] = useState<string>(searchParams.get("busca") ?? "");
+  const search = searchParams.get("busca") ?? "";
 
   const refresh = () => {
     router.push(`/Estoque?busca=${encodeURIComponent(search)}`);

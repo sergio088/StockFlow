@@ -14,7 +14,6 @@ export default function ButtonSellItem() {
   const [items, setItems] = useState<Item[]>([]);
   const [itemCarrinho, setItemCarrinho] = useState<Item[]>([]);
   const [total, setTotal] = useState(0);
-  const [desconto, setDesconto] = useState(0);
 
   useEffect(() => {
     async function GetItems(search?: string) {
@@ -98,21 +97,18 @@ export default function ButtonSellItem() {
                   <h1>Total:</h1>
                   <p>R$ {total}</p>
                 </div>
-                <Input
-                  onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                    setDesconto(Number(e.target.value));
-                  }}
+                {/* <Input
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => {}}
                   type="number"
                   p="Desconto"
                   placeholder="Ex: 10"
                   className="w-fit p-2 rounded focus:border-blue-500 border border-gray-400 placeholder:text-gray-500"
-                ></Input>
+                ></Input> */}
                 <Button
                   onClick={() => {
                     SellItem(itemCarrinho, total);
                     setItemCarrinho([]);
                     setTotal(0);
-                    setDesconto(0);
                     setOpen(false);
                   }}
                   className="bg-blue-600 px-2 py-1.5 flex justify-center items-center w-full lg:w-fit text-white rounded-3xl hover:bg-blue-700"
